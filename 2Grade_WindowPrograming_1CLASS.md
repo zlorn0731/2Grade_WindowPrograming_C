@@ -273,6 +273,6 @@ Visual Studio 2022에서 C# 프로그램을 개발한다.
 
 Console.Write()와 Console.WriteLine()의 차이를 이해해야 한다.
 
-✍️작성자: 박지안
-🐧실습 환경: Visual Studio 2022
-🗓️ 작업일: 2026-03-13
+### ✍️작성자: 박지안
+### 🐧실습 환경: Visual Studio 2022
+### 🗓️ 작업일: 2026-03-13
