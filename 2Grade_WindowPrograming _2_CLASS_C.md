@@ -30,7 +30,7 @@ Console.Write("Hello C# Programming");
 - 키워드(예약어)
   - 일반 키워드
 #### (일반 키워드)
-```
+-
 | new       | null       | object   | operator |
 | out       | override   | params   | private  |
 | protected | public     | readonly | ref      |
@@ -41,10 +41,10 @@ Console.Write("Hello C# Programming");
 | ulong     | unchecked  | unsafe   | ushort   |    
 | using     | virtual    | void     | volatile | 
 | while     |            |          |          |
-```
+
   - 컨텍스트(문맥) 키워드 -> 특정 위치에서만 키워드로 작동
 #### (컨텍스트 키워드)
-```
+-
 | add       | and        | alias      | ascending | args     |
 | async     | await      | by         | descending| dynamic  |
 | equals    | file       | from       | get       | global   |
@@ -54,7 +54,7 @@ Console.Write("Hello C# Programming");
 | record    | remove     | required   | scoped    | select   |
 | set       | unmanaged  | value      | var       | when     |
 | where     | with       | yield      |           |          |
-```
+
 
 - 식별자
   - 이름을 붙일 때 사용하는 단어
@@ -64,7 +64,7 @@ Console.Write("Hello C# Programming");
     - 숫자로 시작 X
     - 공백은 입력 X
 #### (식별자 규칙)
-```
+-
 | 구분 | 예시 | 설명 |
 |------|------|------|
 | ✅ 바른 예 | `int age = 20;` | 일반적인 변수 이름 (문제 없음) |
@@ -72,13 +72,13 @@ Console.Write("Hello C# Programming");
 | ✅ 바른 예 | `int _count = 10;` | `_` 사용 가능 |
 | ✅ 바른 예 | `void printResult()` | 메소드 이름 (소문자로 시작) |
 | ✅ 바른 예 | `int number1 = 5;` | 숫자 포함 가능 (앞 제외) |
-
+-
 | ❌ 바르지 않은 예 | `int 1age = 20;` | 숫자로 시작 ❌ |
 | ❌ 바르지 않은 예 | `int student age = 20;` | 공백 포함 ❌ |
 | ❌ 바르지 않은 예 | `int int = 10;` | 키워드 사용 ❌ |
 | ❌ 바르지 않은 예 | `int student-age = 20;` | 특수문자 사용 ❌ (`_`만 가능) |
 | ❌ 바르지 않은 예 | `void Print Result()` | 공백 포함 ❌ |
-```
+
 
 - 식별자 구분
   - 괄호가 있는 식별자는 메서드 : Console.WriteLine("Hello C# Programing"); -> WriteLine(메서드)
