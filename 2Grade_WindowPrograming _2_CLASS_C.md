@@ -31,6 +31,7 @@ Console.Write("Hello C# Programming");
   - 일반 키워드
 #### (일반 키워드)
 -
+| 키워드 | 키워드 | 키워드 | 키워드 |
 |-----------|------------|----------|----------|
 | new       | null       | object   | operator |
 | out       | override   | params   | private  |
@@ -46,6 +47,8 @@ Console.Write("Hello C# Programming");
   - 컨텍스트(문맥) 키워드 -> 특정 위치에서만 키워드로 작동
 #### (컨텍스트 키워드)
 - 
+
+| 키워드 | 키워드 | 키워드 | 키워드 | 키워드 |
 |-----------|------------|------------|-----------|----------|
 | add       | and        | alias      | ascending | args     |
 | async     | await      | by         | descending| dynamic  |
