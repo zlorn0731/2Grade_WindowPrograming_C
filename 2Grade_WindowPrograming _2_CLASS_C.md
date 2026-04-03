@@ -713,6 +713,7 @@ char: 2
 - sizeof 연산자와 string 자료형
   - string 자료형은 sizeof 연산자로 자료형의 크기를 구할 수 없음
 ```
+예제 2-35 : sizeof 연산자와 string 자료형
  static void Main(string[] args)
 {
    Console.WriteLine("string: " + sizeof(string)); // 오류
@@ -725,3 +726,27 @@ char: 2
 | long | struct System.Int64 | double | struct System.Double |
 | char | struct System.Char | bool | struct System.Boolean |
 | string | class System.String |  |  |
+- string만 struct로 시작하지 않고 class로 시작
+
+#### 불 자료형
+- 불 변수를 선언할 때 사용하는 자료형
+- 
+| 키워드 | 설명 |
+|-------|-------|
+| bool | 불 자료형 |
+```
+예제 2-36 : 불 변수 생성
+ static void Main(string[] args)
+{
+   bool one = 10 < 0;
+   bool other = 20 > 100;
+
+   Console.WriteLine(one);
+   Console.WriteLine(other);
+}
+
+- 결과
+False
+False
+```
+
