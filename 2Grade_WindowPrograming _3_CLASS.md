@@ -43,6 +43,22 @@ static void Main(string[] args)
 428
 ```
 
+#### 예제 2-38 : 숫자와 관련된 복합 대입 연산자의 다른 방식
+```
+static void Main(string[] args)
+{
+   int output = 0;
+   output = output + 52;
+   output = output + 273;
+   output = output + 103;
+
+   Console.WriteLine(output);
+}
+
+- 결과
+428
+```
+
 #### 예제 2-39 : 문자와 관련된 복합 대입 연산자
 ```
 static void Main(string[] args)
@@ -50,6 +66,21 @@ static void Main(string[] args)
    string output = "hello";
    output += "world"; // output = output + "world";
    output += "!"; // output = output + "!";
+
+   Console.WriteLine(output);
+}
+
+- 결과
+hello world !
+```
+
+#### 예제 2-40 : 문자열과 관련된 복합 대입 연산자 예제 풀어쓰기
+```
+static void Main(string[] args)
+{
+   string output = "hello";
+   output = output + "world";
+   output = output + "!";
 
    Console.WriteLine(output);
 }
@@ -97,7 +128,7 @@ static void Main(string[] args)
 10
 ```
 
-#### 예제 2-42 : 증감 연산자와 전위와 후위
+#### 예제 2-42 : 증감 연산자와 후위 형태
 ```
 static void Main(string[] args)
 {
@@ -116,7 +147,7 @@ static void Main(string[] args)
 10
 ```
 
-#### 예제 2-43 : 증감 연산자의 전위와 후위
+#### 예제 2-43 : 증감 연산자의 전위 형태
 ```
 static void Main(string[] args)
 {
@@ -132,6 +163,82 @@ static void Main(string[] args)
 10
 11
 10
+10
+```
+
+#### 예제 2-44 : 후위 증감 연산자
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = 10;
+            Console.WriteLine(number);
+            Console.WriteLine(number++);
+            Console.WriteLine(number--);
+            Console.WriteLine(number);
+        }
+    }
+}
+
+- 결과
+10
+10
+11
+10
+```
+
+#### 예제 2-45 : 증감 연산자 이해도 확인
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = 10;
+            Console.WriteLine(number++);
+            Console.WriteLine(++number);
+            Console.WriteLine(number--);
+            Console.WriteLine(--number);
+        }
+    }
+}
+
+- 결과
+10
+12
+12
+10
+```
+
+#### 예제 2-46 : 여러 줄로 나누어 적은 증감 연산자
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = 10;
+            Console.WriteLine(number);
+            number++;
+            number++;
+            Console.WriteLine(number); 
+            Console.WriteLine(number); 
+            number--; 
+            number--;
+            Console.WriteLine(number);
+        }
+    }
+}
+
+- 결과
+10
+12
+12
 10
 ```
 
@@ -200,21 +307,26 @@ System.String
 | var 키워드 | 설명 |
 |------------|------|
 | var | 자료형을 자동으로 지정합니다 |
+
+#### 예제 2-49 : var 키워드
 ```
 static void Main(string[] args)
 {
    var number = 100;
 ```
-- var키워드의 제약
-  - 한 번 지정된 자료형은 계속 유지
-  - int 자료형으로 선언된 변수를 string 자료형으로 바꾸는 것은 불가능
+#### 2-50 : var키워드의 제약
 ```
 var number = 10.2; // 실수
 number = "변경"; // 문자열
 ```
+- 한 번 지정된 자료형은 계속 유지
+- int 자료형으로 선언된 변수를 string 자료형으로 바꾸는 것은 불가능
+
 #### var 키워드 추가 사용 조건
 - 지역 변수로 선언
   - 지역 변수 : 메서드 내부에서 선언되어 있는 변수
+ 
+#### 예제 2-51 : 지역 변수
 ```
 class Program
 {
@@ -226,7 +338,8 @@ class Program
    }
 }
 ```
-  - 변수를 선언과 동시에 초기화
+
+#### 예제 2-52 : var 키워드의 선언과 초기화 동시 수행
 ```
 static void Main(string[] args)
 {
@@ -243,7 +356,7 @@ static void Main(string[] args)
   - long 자료형, float 자료형 선언 시
     - 숫자 뒤에 L, F 등 기호 붙여야 함
 
-#### 예제 2-54 : var키워드를 사용한 다양한 자료형 선언
+#### 예제 2-53 : var키워드를 사용한 다양한 자료형 선언
 ```
 static void Main(string[] args)
 {
@@ -251,6 +364,25 @@ static void Main(string[] args)
    var numberB = 100.0; // double 자료형
    var numberC = 100.0F; // float 자료형
 }
+```
+
+#### 예제 2-54, 2-55 : long 자료형을 나타내는 기호
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(123456 + 654321l); // 소문자 l
+            Console.WriteLine(123456 + 654321L); // 대문자 L 권장
+        }
+    }
+}
+
+- 결과
+777777
+777777
 ```
 
 ### 입력
@@ -284,6 +416,8 @@ input: 아무 것이나 입력
 
 ### 자료형 변환
 - 자료형 변환이란, 한 자료형을 다른 자료형으로 바꾸는것
+
+#### 예제 2-57 : 자료형 변환
 ```
 static void Main(string[] args)
 {
@@ -303,22 +437,14 @@ static void Main(string[] args)
    Console.Write()
 }
 ```
-```
-강제 자료형 변환 예시:
 - 데이터 손실은 남
 - 바꾸려는 자료형의 크기보다 작으면 데이터 손실 ❌, 명시적 형변환 ✅
+
+#### 예제 2-58 : 강제 자료형 변환
+```
 var a = (int)10.0;
 var b = (float)10;
 var c = (double)10;
-```
-```
-강제 자료형 변환 데이터 손실 발생하지 않는 예시:
-static void Main(string[] args)
-{
-   long longNumber = 52273;
-   int intNumber = (int)longNumber;
-   Console.WriteLine(intNumber);
-}
 ```
 
 #### 예제 2-59 : 강제 자료형 변환
@@ -334,22 +460,17 @@ static void Main(string[] args)
 -2
 ```
 
-#### 예제 2-61 : 숫자 손상
+#### 예제 2-60 : 강제 자료형 변환의 데이터 손실 미발생
 ```
 static void Main(string[] args)
 {
-   long longNumber = 214783647L + 214783647L;
-   int longToInt = (int)longnumber; // long형을 int형으로 형변환 데이터 손실이 일어날 수 있음
-   Console.WriteLine(longToInt);
-
-   double doubleNumber = 52.27310332;
-   int doubleToInt = (int)doubleNumber; // double형을 int형으로 형변환 데이터 손실이 일어날 수 있음
-   Console.WriteLine(doubleToInt);
+   long longNumber = 52273;
+   int intNumber = (int)longNumber;
+   Console.WriteLine(intNumber);
 }
 
 - 결과
--2
-52
+52273
 ```
 
 #### 자동 자료형 변환
@@ -360,6 +481,27 @@ static void Main(string[] args)
 | long(8Byte) | float(4byte), double(8Byte) |
 | char(2Byte) | int(4Byte), long(8Byte), float(4Byte), double(8Byte) |
 | float(4Byte) | double(8Byte) |
+- C#은 데이터 손실이 일어나지 않는 범위에 한해서 자동으로 자료형을 변경해줌
+
+#### 예제 2-61 : 숫자 손상
+```
+static void Main(string[] args)
+{
+   // long형을 int형으로 변환함
+   long longNumber = 214783647L + 214783647L;
+   int longToInt = (int)longnumber; 
+   Console.WriteLine(longToInt);
+
+   // double형을 int형으로 변환함
+   double doubleNumber = 52.27310332;
+   int doubleToInt = (int)doubleNumber; 
+   Console.WriteLine(doubleToInt);
+}
+
+- 결과
+-2
+52
+```
 
 #### 예제 2-62 : 자동 자료형 변환
 ```
@@ -390,6 +532,25 @@ static void Main(string[] args)
 | float.Parse() | 다른 자료형을 float 자료형으로 변경 |
 | double.Parse() | 다른 자료형을 double 자료형으로 변경 |
 
+#### 예제 2-63 : 문자열을 숫자로 변환
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string numberString = "52273";
+            int intNumber = (int)numberString;  
+            Console.WriteLine(intNumber);
+        }
+    }
+}
+
+오류 코드
+- 다른 자료형을 숫자로 변환할 때는 메서드를 사용해야함
+```
+
 #### 예제 2-64 : 문자열을 숫자로 변환
 ```
 static void Main(string[] args)
@@ -417,9 +578,10 @@ System.Int64
 System.Single
 System.Double
 ```
+
+#### 예제 2-65 : 숫자로 변환할 수 없는 문자열을 변환하는 경우
 - Parse()메서드를 사용할 때 해당 자료형으로 변환 불가능한 문자
 ```
-예시 : 숫자로 변환할 수 없는 문자열을 변환하는 경우
 Console.WriteLine(int.Parse("52.273"));
 Console.WriteLine(int.Parse("abc"));
 // 형식이 맞아야 함
@@ -507,4 +669,82 @@ static void Main(string[] args)
 52273
 52273
 ```
-pg39 부터
+
+#### 예제 2-69 : 간단한 문자열 변환
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = 52273;
+            string outputA = number + "";
+            Console.WriteLine(outputA);
+
+            char character = 'a';
+            string outputB = character + "";
+            Console.WriteLine(outputB);
+        }
+    }
+}
+
+- 결과
+52273
+a
+```
+
+#### 다른 자료형을 불로 변환
+- 
+| 메서드 | 설명 |
+|--------|------|
+| bool.Parse() | 문자열을 불 자료형으로 변환함 |
+
+#### 예제 2-70 : 문자열을 불로 변환
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(bool.Parse("True"));
+            Console.WriteLine(bool.Parse("true"));
+            Console.WriteLine(bool.Parse("False"));
+            Console.WriteLine(bool.Parse("false"));
+        }
+    }
+}
+
+- 결과
+True
+true
+False
+false
+```
+
+#### 예제 2-71 : int 자료형 최솟값의 음수
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int output = int.MinValue;
+            Console.WriteLine(output);
+            Console.WriteLine(-output);
+            Console.WriteLine(+output);  
+        }
+    }
+}
+
+- 결과
+-2147483648
+-2147483648
+-2147483648
+```
+
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: Visual Studio 2022
+##### 🗓️ 작업일: 2026-04-11
