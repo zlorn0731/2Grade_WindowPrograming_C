@@ -662,6 +662,83 @@ namespace week4wp
 자연수가 아닙니다
 ```
 
+### 응용 예제
+
+#### 응용 예제 3-1 : 입력 받아 조건 분활
+- string.Contains() 메서드
+  - Contains() 메서드의 반환(리턴)형은 bool타입
+  - 반환이 bool자료형이라면 if 조건문의 불_표현식에 사용할 수 있음
+- 간단하게 입력 받고 입력에 안녕이라는 글자가 들어있으면 안녕하세요...! 출력
+```
+간단하게 입력 받고 입력에 안녕이라는 글자가 들어있으면 안녕하세요...! 출력
+
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("입력: ");
+            string line = Console.ReadLine();
+
+            if (line.Contains("안녕"))
+            {
+                Console.WriteLine("안녕하세요...!");
+            }
+            else
+            {
+                Console.WriteLine("^^");
+            }
+        }
+    }
+}
+
+- 결과
+입력: 안녕안녕..!
+안녕하세요...!
+```
+
+#### 응용 예제 3-2 : 키 입력 구분
+- ReadKey() 메서드
+  - if 조건문과 switch 조건문 중 일반적으로 if 조건문 사용
+  - 다만, 고정된 값을 많이 비교해야 할 때 switch조건문을 사용하는 것이 일반적
+  - 대표적으로 키 입력을 구분하는 경우 switch 조건문 사용
+  - Key 속성은 ConsoleKey 자료형
+  - ConsoleKey 자료형은 "입력할 수 있는 키의 모음"
+- ReadKey() 메서드는 ConsoleKeyInfo 객체를 받게 되는데, 이 객체 내부의 Key 속성을 사용하면 어떤 키를 입력했는지 알 수 있음
+```
+키보드의 화살표 키를 인식하고 switch 조건문을 사용해 분기
+
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            ConsoleKeyInfo info = Console.ReadKey();
+            switch(info.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    Console.WriteLine("위쪽으로 이동");
+                    break;
+                case ConsoleKey.RightArrow:
+                    Console.WriteLine("오른쪽으로 이동");
+                    break;
+                case ConsoleKey.LeftArrow:
+                    Console.WriteLine("왼쪽으로 이동");
+                    break;
+                case ConsoleKey.DownArrow:
+                    Console.WriteLine("아래쪽으로 이동");
+                    break;
+                default:
+                    Console.WriteLine("다른 키를 눌렀습니다");
+                    break;
+            }
+        }
+    }
+}
+```
+
 ##### ✍️작성자: 박지안
 ##### 🐧실습 환경: Visual Studio 2022
 ##### 🗓️ 작업일: 2026-04-11
