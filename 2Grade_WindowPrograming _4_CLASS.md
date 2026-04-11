@@ -500,3 +500,168 @@ namespace week4wp
 ```
 
 ### switch 조건문
+- switch문은 if else if문과 같은 용도로 쓰임
+  - if else if문이 참이나 거짓의 결과를 문장의 행태로 수행하는 반면 switch문은
+    정수식에 따라 분기함 (조건에 맞는 cas문으로 분기)
+    - break 키워드는 switch 조건문 또는 반복문을 빠져나갈 때 사용
+    - switch 조건문 괄호 안에는 비교할 값 입력, 입력값을 기준으로 특정 코드 실행
+    - 입력한 표현식과 case 키워드 옆의 표현식 같으면, 키워드 다음 문장을 차례로 실행
+```
+문장1;
+
+switch (비교할 값[정수식])
+{
+   case 값1: 문장2; [break;]
+   case 값2: 문장3; [break;]
+   case 값3: 문장4; [break;]
+   ....
+   [default:] 문장 n;
+}
+다음 문장;
+```
+- switch문의 순서도
+```
+                  [문장]
+                     ↓
+          ↓←←←←←←←<정수식>→→→→→→→↓ 
+          ↓          ↓          ↓
+       [문장2]     [문장3]    [문장n]
+          ↓          ↓          ↓
+          ↓→→→→→→→→→→↓←←←←←←←←←←↓
+                     ↓
+                [다음 문장]
+```
+- switch문은 if else if문과 같은 용도로 쓰임
+  - switch문에서는 break문을 생략할 수 있는데, break문이 없으면 if문에서 논리합 연산자(||)와 유사한 기능을 수행하므로 코드가 간단해 짐
+```
+switch (비교할 값)
+{
+   case 값:
+       문장
+       break;
+   case 값:
+       문장
+       break;
+   default:
+       문장
+       break;
+}
+```
+
+#### 예제 3-11 : switch 조건문
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("숫자를 입력하세요: ");
+            int input = int.Parse(Console.ReadLine());
+
+            switch (input % 2)
+            {
+                case 0:
+                    Console.WriteLine("짝수입니다.");
+                    break;
+                case 1:
+                    Console.WriteLine("홀수입니다.");
+                    break;
+            }
+        }
+    }
+}
+
+- 결과
+273
+홀수입니다.
+```
+
+#### 예제 3-12 : break 키워드를 사용하지 않는 switch 조건문
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("이번 달은 몇 월인가요: ");
+            int input = int.Parse(Console.ReadLine());
+
+            switch (input)
+            {
+                case 12:
+                case 1:
+                case 2:
+                    Console.WriteLine("겨울입니다.");
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    Console.WriteLine("봄입니다.");
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    Console.WriteLine("여름입니다.");
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                    Console.WriteLine("가을입니다.");
+                    break;
+                default:
+                    Console.WriteLine("대체 어떤 행성에 살고 계신가요?");
+                    break;
+            }
+        }
+    }
+}
+
+- 결과
+이번 달은 몇 월인가요: 12
+겨울입니다.
+```
+
+### 삼항 연산자
+- if문, switch문 이외에도 조건을 구분할 때 사용 가능한 연산자
+  - 연산자이지만 프로그램의 진행을 조건에 따라 변화시킬 수 있음
+```
+[불 표현식] ? [참] : [거짓]
+```
+
+#### 예제 3-13 : 삼항 연산자
+```
+// 참과 거짓 위치에 불 자료형 사용
+Console.WriteLine(number % 2 == 0 ? true : false);
+
+// 참과 거짓 위치에 문자열 자료형 사용
+Console.WriteLine(number % 2 == 0 ? "짝수" : "홀수");
+```
+
+#### 예제 3-14 : 삼항 연산자를 이용한 자연수 판별
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // 변수를 선언
+            string input = Console.ReadLine();
+            int number = int.Parse(input);
+
+            // 조건 구분
+            Console.WriteLine(number > 0 ? "자연수입니다" : "자연수가 아닙니다");
+        }
+    }
+}
+
+- 결과
+-52273
+자연수가 아닙니다
+```
+
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: Visual Studio 2022
+##### 🗓️ 작업일: 2026-04-11
