@@ -208,7 +208,450 @@ namespace week4wp
 ```
 
 ### do while 반복문
-- while
+- while 반복문과 유사하나 while문 앞에 do라는 지정어가 추가되고 조건 비교 부분이 마지막에 위치
+- 반복되는 문장을 일단 한 번은 실행하고 그 다음에 조건을 검사해 조건이 참이면 계속 반복하고 거짓이면 while문을 빠져나옴
+  - while문은 조건이 거짓이면 한 번도 실행하지 않는 반면,
+  - do while문은 조건 검사를 나중에 하므로 조건이 거짓이더라도 한 번은 실행
+```
+do {
+   // 불 표현식이 참인 동안 실행할 문장;
+} while (조건[불 표현식])
+```
 
+#### 예제 4-11 : do while 반복문 활용
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string input;
+            do
+            {
+                Console.Write("입력(exit를 입력하면 종료): ");
+                input = Console.ReadLine();
+            } while (input != "exit");
+        }
+    }
+}
 
+- 결과
+입력(exit를 입력하면 종료): ㅇㅂㅇ
+입력(exit를 입력하면 종료): ㅇㅅㅇ
+입력(exit를 입력하면 종료): exit
+```
 
+### for 반복문
+- 원하는 횟수만큼 반복하기 : <초기식>,<조건식>,<증감식(종결식)>,<문장>으로 구성
+- 맨 먼저 초기식 실행 후 조건식 확인
+  - <초기식>,<조건식>,<증감식(종결식)>은 세미콜론(;)으로 구분
+```
+for(<초기식>;<조건식>;<증감식(종결식)>)
+{
+   문장;
+}
+
+for ( int i = 0; i < [반복 횟수]; i++ )
+{
+
+}
+```
+- for 반복문 실행 단계
+```
+for(<초기식>;<조건식>;<증감식(종결식)>)
+      (1)      (2)       (4)
+
+<다음 문장>;         <문장>;
+   (5)                (3)
+
+1. 먼저 <초기식>에서 제어변수를 초기화하고
+2. <조건식>에서 조건이 참인지 거짓인지를 검사함
+3. <조건식>이 참이면 블록 안의 <문장>을 수행하고,
+4. <종결식>에 따라 제어변수를 증가시키거나 감소시킴
+2. <종결식>에 의해 변경된 값이 적용된 <조건식>이 참인지 검사함
+5. 제어변수의 값을 적용한 <조건식>이 거짓이면 <문장>을 수행하지 않고 for문을 빠져 나와서 <다음 문장>이 수행
+```
+
+#### 예제 4-12 : for 반복문으로 덧셈
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int output = 0;
+
+            for (int i = 0; i <= 100; i++) 
+            {
+                output += i;
+            }
+            Console.WriteLine(output);
+        }
+    }
+}
+
+- 결과
+5050
+```
+
+#### 예제 4-13 : for 반복문으로 곱셈
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            long output = 1; // 곱셈의 크기가 커질 수 있으니 int보다 많으 값을 가질 수 있는 long
+                          // 초기 값을 0으로 두면 뭘 곱해도 0이니 1로 설정
+            for (int i = 1; i <= 20; i++) 
+            {
+                output *= i;
+            }
+            Console.WriteLine(output);
+        }
+    }
+}
+
+- 결과
+2432902008176640000
+```
+
+#### 예제 4-14 : 한글 전부 출력
+```
+static void Main(string[] args)
+{
+   for (int  i = '가'; i <= '힣'; i++)
+   {
+      Console.Write(char(i));
+   }
+}
+
+- 결과
+가
+...
+힣
+```
+
+### (참고) 외부 요인으로 조건 변경
+- 시간을 사용한 반복문 이탈
+  - for 반복문 많이 사용, while 반복문은 외부 요인으로 조건 변경 되는 경우 사용
+
+#### 예제 4-15 : 시간을 사용한 반복문 이탈
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            long start = DateTime.Now.Ticks;
+            long count = 0;
+
+            // 10000000Tick = 1초
+            while (start + (10000000) > DateTime.Now.Ticks)
+            {
+                count++;
+            }
+
+            Console.WriteLine(count + "만큼 반복했습니다.");
+        }
+    }
+}
+
+- 결과
+32087913만큼 반복했습니다.
+```
+
+### 역 for 반복문
+- 배열 반복을 뒤에서부터 실행 하는 경우 사용
+```
+for (int i = length -1; i >= 0; i--)
+{
+
+}
+```
+
+#### 예제 4-16 : 역 for 반복문
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] intArray = { 1, 2, 3, 4, 5, 6 };
+
+            for (int i = intArray.Length - 1; i >= 0; i--)
+            {
+                Console.WriteLine(intArray[i]);
+            }
+        }
+    }
+}
+
+- 결과
+6
+5
+4
+3
+2
+1
+```
+
+### foreach 반복문
+- 반복문을 컬렉션에 쉽게 적용할 때 사용
+  - 컬레션 : 여러 개체가 모여서 집합을 이룬 것
+```
+foreach (자료형 변수 in 컬렉션)
+{
+
+}
+
+for (int i = 0; i < 컬렉션.길이; i++)
+{
+   자료형 변수 = 컬렉션[i];
+}
+```
+
+#### 예제 4-17 : foreach 반복문과 배열
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] array = { "사과", "배", "포도", "딸기", "바나나" };
+
+            foreach(string item in array)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+}
+
+- 결과
+사과
+배
+포도
+딸기
+바나나
+```
+
+#### 예제 4-18 : foreach 반복문과 var 키워드
+- var 키워드 : 자료형을 자동 지정 (C#에서 일반적)
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] array = { "사과", "배", "포도", "딸기", "바나나" };
+
+            foreach(var item in array)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+}
+
+- 결과
+사과
+배
+포도
+딸기
+바나나
+```
+
+### 중첩 반복문
+- 반복문을 여러 번 중첩해서 사용하는 형태의 반복문
+
+#### 예제 4-20 : 별 피라미드(1)
+- 1차원(한 줄) 출력 시, 반복문은 한 겹
+- 2차원(면) 출력 시, 반복문은 두 겹
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++) 
+            {
+                for (int j = 0; j < i + 1; j++) // i + 1 ⭐
+                    Console.Write('*');
+                Console.Write('\n');
+            }
+        }
+    }
+}
+
+- 결과
+*
+**
+***
+****
+*****
+******
+*******
+********
+*********
+**********
+```
+
+#### 예제 4-21 : 별 피라미드(2)
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++) 
+            {
+                for (int j = 0; j < 10 - i; j++)
+                    Console.Write(' ');
+                for (int j = 0; j < i + 1; j++) 
+                    Console.Write('*');
+                Console.WriteLine('\n');
+            }
+        }
+    }
+}
+
+- 결과
+          *
+
+         **
+
+        ***
+
+       ****
+
+      *****
+
+     ******
+
+    *******
+
+   ********
+
+  *********
+
+ **********
+```
+
+### break 키워드
+- switch 조건문 또는 반복문을 벗어날 때 사용하는 키워드
+- switch문, for문, while문, do while문의 제어를 벗어나기 위해 사용할 수 있음
+- 무한 반복문은 내부에서 break 키워드를 사용해야 벗어날 수 있음
+```
+for (초기식;조건식;증감식)
+{
+   문장1;
+  if(조건식)
+       break;
+   문장2;
+}
+문장3;
+```
+
+#### 예제 4-22 : break 키워드
+- 짝수를 입력하면 break 키워드로 반복문 벗어나고, 홀수 입력하면 무한반복하며 입력 요구하기
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.Write("숫자를 입력해주세요(짝수를 입력하면 종료): ");
+                int input = int.Parse(Console.ReadLine());
+                if (input % 2 == 0)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+- 결과
+숫자를 입력해주세요(짝수를 입력하면 종료): 31
+숫자를 입력해주세요(짝수를 입력하면 종료): 51
+숫자를 입력해주세요(짝수를 입력하면 종료): 61
+숫자를 입력해주세요(짝수를 입력하면 종료): 52
+```
+
+#### (참고) 원하는 반복문 벗어나기
+- goto 키워드
+#### 예제 4-23 : goto 키워드
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("외부 반복문");
+                for (int j = 0; j < 10; j++)
+                {
+                    Console.WriteLine("내부 반복문");
+                    goto doNotUse;
+                }
+            }
+        doNotUse:
+            Console.WriteLine("goto 키워드");
+        }
+    }
+}
+
+- 결과
+외부 반복문
+내부 반복문
+goto 반복문
+```
+
+### continue 키워드
+- 반복문 내부에서 현재 반복을 멈추고 다음 반복을 진행하게 하는 키워드
+
+#### 예제 4-24 : continue 키워드
+- 변수 i가 짝수일 때 continue 키워드로 현재 반복을 멈추고 다음 반복을 진행하기
+- 즉, 짝수는 출력하지 않고 홀수만 출력하기
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; i < 10; i++) 
+            {
+                if (i % 2 == 0)
+                {
+                    continue;
+                }
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
+
+- 결과
+1
+3
+5
+7
+9
+```
+6주차 응용예제 부터 정리 요함
