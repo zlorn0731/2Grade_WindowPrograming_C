@@ -654,4 +654,212 @@ namespace week4wp
 7
 9
 ```
-6주차 응용예제 부터 정리 요함
+
+### 응용 예제
+
+#### 응용 예제 4-26 : 문자열 처리
+- 대문자화와 소문자화
+  - ToUpper()
+  - ToLower()
+- 
+| 메서드 | 설명 |
+|--------|------|
+| ToUpper() | 문자열 내부의 문자를 모두 대문자로 변경 |
+| ToLower() | 문자열 내부의 문자를 모두 소문자로 변경 |
+```
+static void Main(string[] args)
+{
+   string input = "Potato Tomato";
+   Console.WriteLine(input.ToUpper());
+   Console.WriteLine(input.ToLower());
+}
+
+- 결과
+POTATO TOMATO
+potato tomato
+```
+
+#### 응용 예제 4-27 : 문자열 자르기
+- Split()
+  - 문자열에 있는 특정한 문자를 사용해 문자열을 자르고
+  - 문자열 배열로 반환해주는 메서드
+- 
+| 메서드 | 설명 |
+|--------|------|
+| Split() | 문자열을 특정한 문자 또는 문자열로 자름 |
+```
+static void Main(string[] args)
+{
+   string input = "감자 고구마 토마토";
+   string[] inputs = input.Split(new char[] {' '});
+
+   foreach (var item in inputs)
+   {
+       Console.WriteLine(item);
+   }
+}
+
+- 결과
+감자
+고구마
+토마토
+```
+
+#### 응용 예제 4-28 : 문자열 양옆의 공백 제거
+- Trim(), TrimStart(), TrimEnd()
+  - 문자열 양 옆, 문자열 앞, 문자열 뒤의 공백을 제거
+- 
+| 메서드 | 설명 |
+|--------|------|
+| Trim() | 문자열 양 옆의 공백을 제거 |
+| TrimStart() | 문자열 앞의 공백을 제거 |
+| TrimEnd() | 문자열 뒤의 공백을 제거 |
+```
+static void Main(string[] args)
+{
+   string input = " test         \n";
+   Console.WriteLine("::" + intput.Trim() + "::"); // "::"은 양옆에 공백, 개행이 삭제되는지 확인하기 위한 글자
+   Console.Read();
+}
+
+- 결과
+::test::
+```
+
+#### 응용 예제 4-29 : 배열을 문자열로 변환
+- string.Join()
+  - 배열에 있는 요소를 연결하여 문자열로 만들기
+- 
+| 메서드 | 설명 |
+|-------|-------|
+| string.Join() | 배열의 요소를 뭉쳐 문자열로 변경 |
+```
+static void Main(string[] args)
+{
+   string[] array = { "감자", "고구마", "토마토", "가지" };
+   Console.WriteLine(string.Join(",", array);
+}
+
+- 결과
+감자, 고구마, 토마토, 가지
+```
+
+#### 응용 예제 : 이동하는 달팽이
+- 메서드
+  - Console.Clear()
+  - Cosole.SetCursorPosition()
+  - Thread.Sleep()
+- 
+| 메서드 | 설명 |
+| Console.Clear() | 콘솔 화면을 지움 |
+| Console.SetCursorPosition() | 콘솔 화면의 특정한 위치로 커서를 옮김 |
+| Thread.Sleep() | 특정한 시간만큼 스레드를 지정 |
+
+#### 응용 예제 4-30 : Console.SetCursorPosition() 메서드
+```
+static void Main(string[] args)
+{
+   Console.WriteLine("메서드 호출 전");
+   Console.WriteLine(5, 5);
+   Console.WriteLine("메서드 호출 후");
+}
+
+- 결과
+메서드 호출 전
+
+
+
+     메서드 호출 후
+```
+
+#### 응용 예제 4-31 : Thread.Sleep() 메서드
+```
+using System;
+using System.Threading;
+
+class Program
+{
+  static void Main(string[] args)
+  {
+      Console.WriteLine("첫 번째 출력");
+      Thread.Sleep(1000);
+      Console.WriteLine("두 번째 출력");
+      Thread.Sleep(1000);
+      Console.WriteLine("세 번째 출력");
+  }
+}
+
+- 결과
+첫 번째 출력
+두 번째 출력
+세 번째 출력
+```
+
+#### 응용 예제 4-32 : 이동하는 달팽이
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int x = 1;
+            while (x < 50)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(x, 5);
+
+                if (x % 3 == 0)
+                    Console.WriteLine("__@");
+                else if (x % 3 == 1)
+                    Console.WriteLine("_^@");
+                else
+                    Console.WriteLine("^_@");
+
+                Thread.Sleep(1000);
+                x++;
+            }
+        }
+    }
+}
+```
+
+#### 응용 예제 4-33 : switch와 무한 반복문
+```
+namespace week4wp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool state = true;
+            while(state)
+            {
+                ConsoleKeyInfo info = Console.ReadKey();
+                switch(info.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        Console.WriteLine("위로 이동");
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Console.WriteLine("아래로 이동");
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        Console.WriteLine("왼쪽으로 이동");
+                        break;
+                    case ConsoleKey.RightArrow:
+                        Console.WriteLine("오른쪽으로 이동");
+                        break;
+                    case ConsoleKey.X:
+                        state = false;
+                        break;
+                }
+            }
+        }
+    }
+}
+```
+
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: Visual Studio 2022
+##### 🗓️ 작업일: 2026-04-12
