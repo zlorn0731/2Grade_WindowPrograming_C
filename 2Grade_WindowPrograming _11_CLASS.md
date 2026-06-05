@@ -124,3 +124,78 @@
 | protected | O | | O | |
 | private | O | | | |
 | protected internal | O | 사용하는 클래스가 같은 어셈블리 안에 있을 때 접근 가능 | O | |
+
+#### (참고) base 키워드
+- 자식 클래스에서 부모 클래스에 정의한 멤버의 사용
+  - 부모로부터 상속받은 메서드 호출
+  ```
+  class Animal
+  {
+    public void Eat() { Console.WriteLine("냠냠 먹습니다."); }
+    public void Sleep() { Console.WriteLine("쿨쿨 잠을 잡니다."); }
+  }
+
+  class Dog : Animal
+  {
+    public void Test()
+    {
+      // 부모에게서 상속받은 Eat()메서드와 Sleep()메서드를 호출
+      Eat();
+      Sleep();
+    }
+  }
+  ```
+- (이름이 겹치는 등) 특수한 이유로 부모의 메서드에 접근 불가할 경우 this 키워드와 같은 형태로 base 키워드 사용
+  - 부모를 나타내는 base 키워드 사용 cf.this는 자신을 나타내는 키워드였음
+```
+class Dog : Animal
+{
+  public string Color { get; set; }
+
+  public void Bark()
+  {
+    base.~
+  }
+}
+```
+
+#### (참고) protected 접근 제한자
+- private과 비슷하지만 상속한 클래스(파생 클래스)에서는 접근 가능
+  - 세 가지 접근 제한자(계속)
+```
+class Program
+{
+  class Animal
+  {
+    private void Private() { }
+    protected void Protected() { }
+    public void Public() { }
+
+    public void TestA() // Animal 클래스 내부
+    {
+      // 자신의 클래스 내부에서는 모든 멤버를 사용할 수 있음
+      Private();
+      Protected();
+      Public();
+    }
+}
+```
+```
+  class Dog : Animal
+  {
+    public void TestB() // Animal 클래스의 파생클래스(자식 클래스)
+    {
+      // 상속받은 클래스에서는 private 접근 제한자가 붙은 멤버를 사용할 수 있음
+      Protected();
+      Public();
+    }
+  }
+
+  static void Main(String[] args)
+  { // Animal 클래스의 외부클래스(Program)
+    Dog dog = new Dog();
+    dog.Public(); // 이외의 모든 장소에서는 public 접근 제한자가 붙은 멤버만 사용할 수 있음
+  }
+}
+```
+pg18부터 다형성 부분부터 작성
