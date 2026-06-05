@@ -104,5 +104,23 @@
     public void Meow() { Console.WriteLine("냥냥 웁니다."); }
   }
   ```
+- 클래스의 부모 자식 관계가 형성되면 자식 클래스는 부모 클래스의 public 또는 protected 멤버에 접근 가능
+  - 부모의 모든 멤버 public이므로 Dog 클래스의 인스턴스를 만들면 해당 인스턴스에서 자신의 멤버는 물론 부모의 멤버에 모두 접근 가능
+  - Dog 클래스에서 접근할 수 있는 멤버 목록
+  ```
+  Dog dog = new Doy();
+  dog.~
+  ```
 
-  pg11 부터 작성요함
+#### (참고) 다른 접근 제한자
+- C#의 접근 제한자
+  - 기본적인 접근 제한자는 private, public protected (교재에서 다루는 범위)
+  - 그 외에 internal, protected internal
+- 
+| 접근 제한자 | 내부 클래스 | 외부 클래스 | 파생 클래스 | 프로젝트 |
+|------------|-------------|-----------|------------|----------|
+| public | O | O | O | O |
+| internal | O | O | O | |
+| protected | O | | O | |
+| private | O | | | |
+| protected internal | O | 사용하는 클래스가 같은 어셈블리 안에 있을 때 접근 가능 | O | |
