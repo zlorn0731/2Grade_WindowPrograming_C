@@ -198,4 +198,231 @@ class Program
   }
 }
 ```
-pg18부터 다형성 부분부터 작성
+
+### 다형성
+- Main()메서드의 코드 중복 문제
+```
+static void Main(string[] args)
+{
+  List<Dog> Dogs = new List<Dog>() { new Dog(), new Dog(), new Dog() };
+  List<Cat> Cats = new List<Cat>() { new Cat(), new Cat(), new Cat() };
+  // 비슷한 코드 중복
+
+  foreach (vat item in Dogs)
+  {
+    item.Eat();
+    item.Sleep();
+    item.Bark();
+  }
+  // 비슷한 코드 중복
+  foreach (var item in Cats)
+  {
+    item.Eat();
+    item.Sleep();
+    item.Meow();
+  }
+}
+```
+
+- 다형성은 하나의 클래스가 여러 형태로 변환될 수 있는 성질
+  - 자식 클래스가 부모 클래스로 위장하는 것으로 생각할 것
+    - (예시) 자료형 Animal로 dog생성
+      - 변수 dog는 외관상으로 자료형 Animal이지만 실제 내부에는 Dog이 들어있음
+      - 외관상으로는 Animal 객체이므로 사용할 수 있는 멤버는 Animal 클래스 멤버 뿐임
+      - 부모로 위장한 자식은 부모의 멤버만 사용 가능
+      ```
+      Animal dog = new Dog();
+      Animal cat = new Cat();
+      ```
+
+- 다형성을 사용한 코드 중복 해결
+```
+static void Main(string[] args)
+{
+  List<Animal> Animals = new List<Animal>(); // 하나의 리스트를 사용 
+  {
+    new Dog(), new Cat(), new Dog(),
+    new Dog(), new Cat(), new Dog()
+  };
+
+  //  하나의 반복문을 사용
+  foreach (var item in Animals)
+  {
+    item.Eat();
+    item.Sleep();
+  }
+}
+```
+
+- 부모로 위장한 자식은 부모 멤버만 사용할 수 있음
+- 따라서, 자식 클래스에 있는 메서드를 사용 위해, 자식 클래스로 자료형 변환이 필요
+  - 위장을 해제하고 자신의 멤버를 사용
+
+- 무작정 Cat 클래스로 변환해서 사용
+  - 무작정 변환해서 메서드 호출
+  ```
+  foreach (var item in Animals)
+  {
+    item.Eat();
+    item.Sleep();
+    ((Cat)item).Meow);
+  }
+  ```
+  - 내부에 조건문을 넣고 Dog클래스는 Dog클래스로 변환하여 Bark() 메서드 호출하고, Cat클래스는 Cat클래스로 변환하여 Meow() 메서드를 호출해야 함
+ 
+### 상속
+- (참고) 최상위 객체
+  - C#에서 만드는 모든 객체는 Object라는 객체의 상속을 받게 됨
+    - Object 객체의 선언
+      - 아래 메서드 중 public 접근 제한자가 붙은 메서드들은 C#에서 만드는 모든 객체에 상속됨
+      ```
+      class Object
+      {
+        public Object();
+
+        public virtual bool Equals(object obj);
+        pulic static bool Equals(object objA, object objB);
+        public virtual int GetHasCode();
+        public Type GetType();
+        protected object MemberwiseClone();
+        public static bool ReferenceEquals(object objA, object objB);
+        public virtual string ToString();
+      }
+      ```
+      
+- 상속 관계
+  - 최상위 Object 클래스
+```
+         [Object]
+          class
+            ↑
+         [Animal]
+          class
+         - Properties
+           Age
+         - Methods
+           Animal
+           Eat
+           Sleep 
+            ↑
+   ↑--------→←---------↑
+ [Dog]               [Cat]
+ class               class
+ → Animal            → Animal
+- Properties        - Methods 
+  Color               Meow 
+- Methods
+  Bark
+```
+
+- 상속 관계
+  - Object 객체의 다형성 예제(1)
+  ```
+  List<Object> listOfObject = new List<Object>();
+  listOfObject.Add(new Dog());
+  listOfObject.Add(new Cat());
+  ```
+  - Object 객체의 다형성 예제(2)
+  ```
+  List<Object> listOfObject = new List<Object>();
+  listOfObject.Add(new Dog());
+  listOfObject.Add(new Cat());
+  listOfObject.Add(52);
+  listOfObject.Add(52l);
+  listOfObject.Add(52.273f);
+  listOfObject.Add(52.273);
+  ```
+
+### is 키워드
+- is키워드는 특정 객체가 어떤 클래스인지 확인하는데 사용
+  - is키워드 형태
+    - 이 객체가 특정 클래스의 객체라면 true 반환
+    ```
+    [객체 is 클래스]
+
+    static void Main(string[] args)
+    {
+      List<Animal>Animals = new List<Animal>() { /* 생략 */ }
+
+      foreach (var item in Animals)
+      {
+        item.Eat();
+        item.Sleep();
+
+        if (item is Dog) { } // 만약 변수 item이 Dog 객체라면
+        if (item is Cat) { } // 만약 변수 item이 Cat 객체라면
+      }
+    }
+    ```
+
+- Dog 클래스의 상속 관계
+```
+item is Dog
+item is Animal
+item is Object
+```
+```
+    [Object]
+     class
+      ↑
+   [Animal]
+    class
+   - Properties
+     Age
+   - Methods
+     Animal
+     Eat
+     Sleep 
+      ↑
+    [Dog]               
+    class               
+    → Animal            
+   - Properties        
+     Color              
+   - Methods
+     Bark
+```
+
+### 클래스와 자료형 변환
+- 일반적인 자료형 변환
+  - (1) 일반적인 자료형 변환의 형태
+  ```
+  (클래스) 변수
+  ```
+    - (예시)
+      - is 키워드를 사용한 부분에 다음과 같은 자료형 변환과 메서드 호출부분 추가
+      - 자료형을 확인하고 변환하므로 예외가 발생하지 않음
+      ```
+      foreach (var item in Animals)
+      {
+        item.Eat();
+        item.Sleep();
+
+        if (item is Dog) { ((Dog)item).Bark(); }
+        if (item is Cat) { ((Cat)item).Meow(); }
+      ```
+
+- as 키워드로 자료형 변환
+  - (2) as 키워드로 자료형 변환의 형태
+  ```
+  변수 as 클래스
+  ```
+    - (예시)
+      - as 키워드를 사용하면 자료형 변환에 실패해도 예외가 발생하지 않음
+      - 단지 null(아무것도 아닌 값)을 넣게 됨
+      - 오른쪽 as 키워드를 사용하는 일반적인 형태의 코드임
+      ```
+      foreach (var item in Animals)
+      {
+        item.Eat();
+        item.Sleep();
+
+        var dog = item as Dog;
+        if (dog != null) { dog.Bark(); }
+
+        var cat = item as Cat;
+        if (cat != null) { cat.Meow(); }
+      }
+      ```
+
+실습 부문 하면 됨
