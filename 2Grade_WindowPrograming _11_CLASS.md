@@ -425,4 +425,145 @@ item is Object
       }
       ```
 
-실습 부문 하면 됨
+### 실습 7-1
+- 부모에게서 상속 받은 메서드 호출
+```
+namespace BInheritance
+{
+  class Animal
+  {
+    public int Age { get; set; }
+
+    public Animal() { this.Age = 0; }
+
+    public void Eat() { Console.WriteLine("냠냠 먹습니다."); }
+    public void Sleep() { Console.WriteLine("쿨쿨 잠을 잡니다."); }
+  }
+
+  class Dog : Animal
+  {
+    public string Color { get; set; }
+    public void Bark() { Console.WriteLine("왈왈 짓습니다."); }
+
+    public void Test()
+    {
+      Eat();
+      Sleep();
+    }
+  }
+
+  class Cat : Animal
+  {
+    public void Meow() { Console.WriteLine("냥냥 웁니다."); }
+  }
+
+  class Program
+  {
+    static void Main(string[] args)
+    {
+    }
+  }
+}
+```
+
+### 실습 7-2
+- 다형성을 사용한 코드 중복 해결
+```
+namespace CInheritance
+{
+  class Animal
+  {
+    public int Age { get; set; }
+
+    public Animal() { this.Age = 0; }
+
+    public void Eat() { Console.WriteLine("냠냠 먹습니다."); }
+    public void Sleep() { Console.WriteLine("쿨쿨 잠을 잡니다."); }
+  }
+
+  class Dog : Animal
+  {
+    public string Color { get; set; }
+    public void Bark() { Console.WriteLine("왈알 짓습니다."); }
+  }
+
+  class Cat : Animal
+  {
+    public void Meow() { Console.WriteLine("냥냥 웁니다."); }
+  }
+
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      List<Animal> Animals = new List<Animal>()
+      {
+        new Dog(), new Cat(), new Cat(), new Dog(), new Dog(), new Cat(), new Dog(), new Dog()
+      };
+      foreach (var item in Animals)
+      {
+        item.Eat();
+        item.Sleep();
+      }
+
+      List<Object> listOfobjectA = new List<object>();
+      listOfobjectA.Add(new Dog());
+      listOfobjectA.add(new Cat());
+    }
+  }
+}
+```
+
+### 실습 7-3
+- is 키워드 & as 키워드 사용
+```
+namespace DInheritance
+{
+  class Animal
+  {
+    public int Age { get; set; }
+
+    public Animal() { this.Age = 0; }
+
+    public void Eat() { Console.WriteLine("냠냠 먹습니다."); }
+    public void Sleep() { Console.WriteLine("쿨쿨 잠을 잡니다."); }
+  }
+
+  class Dog : Animal
+  {
+    public string Color { get; set; }
+    public void Bark() { Console.WriteLine("왈왈 짓습니다."); }
+  }
+
+  class Cat : Animal
+  {
+    public void Meow() { Console.WriteLine("냥냥 웁니다."); }
+  }
+
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      List<Animal> Animals = new List<Animal>()
+      {
+        new Dog(), new Cat(), new Cat(), new Dog(), new Dog(), new Cat(), new Dog(), new Dog()
+      };
+
+      foreach (var item in Animals)
+      {
+        if (item is Dog) { ((Dog)item).Bark(); }
+        if (item is Cat) { ((Cat)item).Meow(); }
+
+        var dog = item as Dog;
+        if (dog != null) { dog.Bark(); }
+
+        var cat = item as Cat;
+        if (cat != null) { cat.Meow(); }
+      }
+  }
+}
+```
+
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: Visual Studio 2022
+##### 🗓️ 작업일: 2026-06-17
